@@ -1,0 +1,2939 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/26/2025 1:54:31 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DESKTOP-5G1LCV1"
+  DTS:CreatorName="DESKTOP-5G1LCV1\NEW"
+  DTS:DTSID="{12EF2FA8-0B02-426E-B5C2-43915A9B3A68}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="16.0.5685.2"
+  DTS:LocaleID="1058"
+  DTS:ObjectName="Load_Facts dtsx"
+  DTS:PackageType="5"
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{16335B92-630F-495F-96BB-20C797D52967}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables />
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Invoices Sequence"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{AE7E69DC-15A0-4EF1-8F0F-C9D4628DC564}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Invoices Sequence">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load Invoices Sequence\Load FactInvoices"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{C417F6DB-C927-4AD4-90A9-6D38F7C4032F}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load FactInvoices"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split"
+                  componentClassID="Microsoft.ConditionalSplit"
+                  contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+                  name="Conditional Split"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Inputs[Conditional Split Input]"
+                      description="Input to the Conditional Split Transformation"
+                      name="Conditional Split Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Inputs[Conditional Split Input].Columns[IsPaid]"
+                          cachedDataType="bool"
+                          cachedName="IsPaid"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsPaid]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Paid Invoices]"
+                      description="Output 1 of the Conditional Split Transformation"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      exclusionGroup="1"
+                      name="Paid Invoices"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Inputs[Conditional Split Input]"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                          name="Expression">#{Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsPaid]} ==  TRUE </property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Specifies the friendly version of the expression. This expression version uses column names."
+                          expressionType="Notify"
+                          name="FriendlyExpression">IsPaid ==  TRUE </property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                          name="EvaluationOrder">0</property>
+                      </properties>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Conditional Split Default Output]"
+                      description="Default Output of the Conditional Split Transformation"
+                      exclusionGroup="1"
+                      name="Conditional Split Default Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Inputs[Conditional Split Input]">
+                      <properties>
+                        <property
+                          dataType="System.Boolean"
+                          name="IsDefaultOut">true</property>
+                      </properties>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Conditional Split Error Output]"
+                      description="Error Output of the Conditional Split Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Conditional Split Error Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Inputs[Conditional Split Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion"
+                  componentClassID="Microsoft.DataConvert"
+                  contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Data Conversion"
+                  name="Data Conversion"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Inputs[Data Conversion Input]"
+                      name="Data Conversion Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Inputs[Data Conversion Input].Columns[Amount]"
+                          cachedDataType="cy"
+                          cachedName="Amount"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[Amount]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Output]"
+                      exclusionGroup="1"
+                      name="Data Conversion Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Output].Columns[Amount_Currency]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Output].Columns[Amount_Currency]"
+                          name="Amount_Currency"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the input column used as the source of data for the conversion."
+                              name="SourceInputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[Amount]}</property>
+                            <property
+                              dataType="System.Boolean"
+                              description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                              name="FastParse">false</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Data Conversion Error Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Inputs[Data Conversion Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load Invoices Sequence\Load FactInvoices\DateKey"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="DateKey"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Inputs[Derived Column Input].Columns[InvoiceDate]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="InvoiceDate"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceDate]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Output].Columns[DateKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Output].Columns[DateKey]"
+                          name="DateKey"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_I4)((DT_WSTR,4)[YEAR]((DT_DBTIMESTAMP)#{Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceDate]}) + [RIGHT]("0" + (DT_WSTR,2)[MONTH]((DT_DBTIMESTAMP)#{Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceDate]}),2) + [RIGHT]("0" + (DT_WSTR,2)[DAY]((DT_DBTIMESTAMP)#{Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceDate]}),2))</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_I4)((DT_WSTR,4)YEAR((DT_DBTIMESTAMP)InvoiceDate) + RIGHT("0" + (DT_WSTR,2)MONTH((DT_DBTIMESTAMP)InvoiceDate),2) + RIGHT("0" + (DT_WSTR,2)DAY((DT_DBTIMESTAMP)InvoiceDate),2))</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup Customer"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimCustomer]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimCustomer]) [refTable]
+where [refTable].[CustomerID_Source] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CustomerKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CustomerID_Source" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CompanyName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ContactPerson" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="City" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerID]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8C5DE1-0947-4D0B-8698-E84A65FC6B0D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DW.sa]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Inputs[Lookup Input].Columns[CustomerID]"
+                          cachedDataType="i4"
+                          cachedName="CustomerID"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerID]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">CustomerID_Source</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Match Output].Columns[CustomerKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Match Output].Columns[CustomerKey]"
+                          name="CustomerKey"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">CustomerKey</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup Project"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimProject]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimProject]) [refTable]
+where [refTable].[ProjectID_Source] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ProjectKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProjectID_Source" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProjectName" dataType="DT_WSTR" length="200" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CategoryName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Status" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Budget" dataType="DT_CY" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="StartDate" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EndDate" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8C5DE1-0947-4D0B-8698-E84A65FC6B0D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DW.sa]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Inputs[Lookup Input].Columns[ProjectID]"
+                          cachedDataType="i4"
+                          cachedName="ProjectID"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">ProjectID_Source</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Match Output].Columns[ProjectKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Match Output].Columns[ProjectKey]"
+                          name="ProjectKey"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">ProjectKey</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[FactInvoices]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8C5DE1-0947-4D0B-8698-E84A65FC6B0D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DW.sa]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[IsPaid]"
+                          cachedDataType="bool"
+                          cachedName="IsPaid"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IsPaid]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[IsPaid]" />
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ProjectKey]"
+                          cachedDataType="i4"
+                          cachedName="ProjectKey"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProjectKey]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectKey]" />
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[CustomerKey]"
+                          cachedDataType="i4"
+                          cachedName="CustomerKey"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerKey]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerKey]" />
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DateKey]"
+                          cachedDataType="i4"
+                          cachedName="DateKey"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[DateKey]" />
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Amount_Currency]"
+                          cachedDataType="cy"
+                          cachedName="Amount_Currency"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceAmount]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount_Currency]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FactInvoiceKey]"
+                          dataType="i4"
+                          name="FactInvoiceKey" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProjectKey]"
+                          dataType="i4"
+                          name="ProjectKey" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerKey]"
+                          dataType="i4"
+                          name="CustomerKey" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                          dataType="i4"
+                          name="DateKey" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceAmount]"
+                          dataType="cy"
+                          name="InvoiceAmount" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[IsPaid]"
+                          dataType="bool"
+                          name="IsPaid" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[PaymentDelayDays]"
+                          dataType="i4"
+                          name="PaymentDelayDays" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Invoices]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
+    i.InvoiceID, 
+    i.ProjectID, 
+    p.CustomerID,
+    i.InvoiceDate, 
+    i.Amount, 
+    i.IsPaid, 
+    i.PaymentDate
+FROM Invoices i
+JOIN Projects p ON i.ProjectID = p.ProjectID</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="{923ED997-76AC-4DE6-85A0-37DE7679F391}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DB.sa]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[InvoiceID]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceID]"
+                          name="InvoiceID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ProjectID]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]"
+                          name="ProjectID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceDate]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[InvoiceDate]"
+                          length="10"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceDate]"
+                          name="InvoiceDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[Amount]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Amount]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[Amount]"
+                          name="Amount"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsPaid]"
+                          dataType="bool"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IsPaid]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsPaid]"
+                          name="IsPaid"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaymentDate]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PaymentDate]"
+                          length="10"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaymentDate]"
+                          name="PaymentDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomerID]"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerID]"
+                          name="CustomerID"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[InvoiceID]"
+                          dataType="i4"
+                          name="InvoiceID" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ProjectID]"
+                          dataType="i4"
+                          name="ProjectID" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[InvoiceDate]"
+                          dataType="wstr"
+                          length="10"
+                          name="InvoiceDate" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Amount]"
+                          dataType="cy"
+                          name="Amount" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IsPaid]"
+                          dataType="bool"
+                          name="IsPaid" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PaymentDate]"
+                          dataType="wstr"
+                          length="10"
+                          name="PaymentDate" />
+                        <externalMetadataColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[CustomerID]"
+                          dataType="i4"
+                          name="CustomerID" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[InvoiceID]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[InvoiceID]"
+                          name="InvoiceID" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ProjectID]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ProjectID]"
+                          name="ProjectID" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomerID]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[CustomerID]"
+                          name="CustomerID" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[InvoiceDate]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[InvoiceDate]"
+                          name="InvoiceDate" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Amount]"
+                          dataType="cy"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Amount]"
+                          name="Amount" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IsPaid]"
+                          dataType="bool"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IsPaid]"
+                          name="IsPaid" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PaymentDate]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PaymentDate]"
+                          name="PaymentDate" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load Invoices Sequence\Load FactInvoices\Union All"
+                  componentClassID="Microsoft.UnionAll"
+                  contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+                  name="Union All"
+                  version="1">
+                  <inputs>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1]"
+                      name="Union All Input 1">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[InvoiceID]"
+                          cachedDataType="i4"
+                          cachedName="InvoiceID"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceID]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[InvoiceID]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[ProjectID]"
+                          cachedDataType="i4"
+                          cachedName="ProjectID"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectID]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[InvoiceDate]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="InvoiceDate"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceDate]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[InvoiceDate]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[Amount]"
+                          cachedDataType="cy"
+                          cachedName="Amount"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[Amount]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[IsPaid]"
+                          cachedDataType="bool"
+                          cachedName="IsPaid"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsPaid]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[IsPaid]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[PaymentDate]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="PaymentDate"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaymentDate]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[PaymentDate]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[CustomerID]"
+                          cachedDataType="i4"
+                          cachedName="CustomerID"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerID]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerID]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[ProjectKey]"
+                          cachedDataType="i4"
+                          cachedName="ProjectKey"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Match Output].Columns[ProjectKey]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectKey]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[CustomerKey]"
+                          cachedDataType="i4"
+                          cachedName="CustomerKey"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Match Output].Columns[CustomerKey]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerKey]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[DateKey]"
+                          cachedDataType="i4"
+                          cachedName="DateKey"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Output].Columns[DateKey]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[DateKey]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1].Columns[Amount_Currency]"
+                          cachedDataType="cy"
+                          cachedName="Amount_Currency"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Output].Columns[Amount_Currency]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount_Currency]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2]"
+                      hasSideEffects="true"
+                      name="Union All Input 2">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[InvoiceID]"
+                          cachedDataType="i4"
+                          cachedName="InvoiceID"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceID]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[InvoiceID]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[ProjectID]"
+                          cachedDataType="i4"
+                          cachedName="ProjectID"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectID]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[InvoiceDate]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="InvoiceDate"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[InvoiceDate]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[InvoiceDate]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[Amount]"
+                          cachedDataType="cy"
+                          cachedName="Amount"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[Amount]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[IsPaid]"
+                          cachedDataType="bool"
+                          cachedName="IsPaid"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[IsPaid]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[IsPaid]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[PaymentDate]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="PaymentDate"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaymentDate]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[PaymentDate]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[CustomerID]"
+                          cachedDataType="i4"
+                          cachedName="CustomerID"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output].Columns[CustomerID]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerID]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[ProjectKey]"
+                          cachedDataType="i4"
+                          cachedName="ProjectKey"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Match Output].Columns[ProjectKey]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectKey]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[CustomerKey]"
+                          cachedDataType="i4"
+                          cachedName="CustomerKey"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Match Output].Columns[CustomerKey]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerKey]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[DateKey]"
+                          cachedDataType="i4"
+                          cachedName="DateKey"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Output].Columns[DateKey]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[DateKey]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2].Columns[Amount_Currency]"
+                          cachedDataType="cy"
+                          cachedName="Amount_Currency"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Output].Columns[Amount_Currency]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount_Currency]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 3]"
+                      dangling="true"
+                      hasSideEffects="true"
+                      name="Union All Input 3">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1]"
+                      name="Union All Output 1">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[InvoiceID]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[InvoiceID]"
+                          name="InvoiceID" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectID]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectID]"
+                          name="ProjectID" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[InvoiceDate]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[InvoiceDate]"
+                          name="InvoiceDate" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount]"
+                          dataType="cy"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount]"
+                          name="Amount" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[IsPaid]"
+                          dataType="bool"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[IsPaid]"
+                          name="IsPaid" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[PaymentDate]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[PaymentDate]"
+                          name="PaymentDate" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerID]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerID]"
+                          name="CustomerID" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectKey]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[ProjectKey]"
+                          name="ProjectKey" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerKey]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[CustomerKey]"
+                          name="CustomerKey" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[DateKey]"
+                          dataType="i4"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[DateKey]"
+                          name="DateKey" />
+                        <outputColumn
+                          refId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount_Currency]"
+                          dataType="cy"
+                          lineageId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1].Columns[Amount_Currency]"
+                          name="Amount_Currency" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Load Invoices Sequence\Load FactInvoices.Paths[Conditional Split Default Output]"
+                  endId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 2]"
+                  name="Conditional Split Default Output"
+                  startId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Conditional Split Default Output]" />
+                <path
+                  refId="Package\Load Invoices Sequence\Load FactInvoices.Paths[Data Conversion Output]"
+                  endId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Inputs[Conditional Split Input]"
+                  name="Data Conversion Output"
+                  startId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Outputs[Data Conversion Output]" />
+                <path
+                  refId="Package\Load Invoices Sequence\Load FactInvoices.Paths[Derived Column Output]"
+                  endId="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion.Inputs[Data Conversion Input]"
+                  name="Derived Column Output"
+                  startId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Load Invoices Sequence\Load FactInvoices.Paths[Lookup Match Output]"
+                  endId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Load Invoices Sequence\Load FactInvoices.Paths[Lookup Match Output1]"
+                  endId="Package\Load Invoices Sequence\Load FactInvoices\DateKey.Inputs[Derived Column Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Load Invoices Sequence\Load FactInvoices.Paths[OLE DB Source Output]"
+                  endId="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\Load Invoices Sequence\Load FactInvoices.Paths[Paid Invoices]"
+                  endId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Inputs[Union All Input 1]"
+                  name="Paid Invoices"
+                  startId="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split.Outputs[Paid Invoices]" />
+                <path
+                  refId="Package\Load Invoices Sequence\Load FactInvoices.Paths[Union All Output 1]"
+                  endId="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Union All Output 1"
+                  startId="Package\Load Invoices Sequence\Load FactInvoices\Union All.Outputs[Union All Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load Invoices Sequence\Truncate FactInvoices"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Truncate FactInvoices"
+          DTS:DTSID="{A1E8E15C-79D4-4620-AEE4-59D23BB12C97}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate FactInvoices"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8C5DE1-0947-4D0B-8698-E84A65FC6B0D}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE FactInvoices;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load Invoices Sequence.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{F7FDA2A9-A9DB-4E35-9DE2-461BBFB5304D}"
+          DTS:From="Package\Load Invoices Sequence\Truncate FactInvoices"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Load Invoices Sequence\Load FactInvoices" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load WorkLogs Sequence"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{6B650F5C-E815-4A69-9A19-6C053A5D1D1D}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load WorkLogs Sequence">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Load WorkLogs Sequence\Load FactWorkLogs"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{BFEEC40B-6103-4F2F-99E9-75A64EBD0B35}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load FactWorkLogs"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Inputs[Derived Column Input].Columns[WorkDate]"
+                          cachedDataType="wstr"
+                          cachedLength="10"
+                          cachedName="WorkDate"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[WorkDate]" />
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Inputs[Derived Column Input].Columns[HoursWorked]"
+                          cachedDataType="numeric"
+                          cachedName="HoursWorked"
+                          cachedPrecision="4"
+                          cachedScale="2"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HoursWorked]" />
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Inputs[Derived Column Input].Columns[HourlyRateApplied]"
+                          cachedDataType="cy"
+                          cachedName="HourlyRateApplied"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HourlyRateApplied]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Output].Columns[DateKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Output].Columns[DateKey]"
+                          name="DateKey"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_I4)((DT_WSTR,4)[YEAR]((DT_DBTIMESTAMP)#{Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[WorkDate]}) + [RIGHT]("0" + (DT_WSTR,2)[MONTH]((DT_DBTIMESTAMP)#{Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[WorkDate]}),2) + [RIGHT]("0" + (DT_WSTR,2)[DAY]((DT_DBTIMESTAMP)#{Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[WorkDate]}),2))</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_I4)((DT_WSTR,4)YEAR((DT_DBTIMESTAMP)WorkDate) + RIGHT("0" + (DT_WSTR,2)MONTH((DT_DBTIMESTAMP)WorkDate),2) + RIGHT("0" + (DT_WSTR,2)DAY((DT_DBTIMESTAMP)WorkDate),2))</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Output].Columns[LaborCost]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Output].Columns[LaborCost]"
+                          name="LaborCost"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_CY)(#{Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HoursWorked]} * #{Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HourlyRateApplied]})</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_CY)(HoursWorked * HourlyRateApplied)</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup Employee"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT EmployeeKey, EmployeeID_Source 
+FROM DimEmployee 
+WHERE IsCurrent = 1</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (SELECT EmployeeKey, EmployeeID_Source 
+FROM DimEmployee 
+WHERE IsCurrent = 1) [refTable]
+where [refTable].[EmployeeID_Source] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="EmployeeKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EmployeeID_Source" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmployeeID]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8C5DE1-0947-4D0B-8698-E84A65FC6B0D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DW.sa]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Inputs[Lookup Input].Columns[EmployeeID]"
+                          cachedDataType="i4"
+                          cachedName="EmployeeID"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmployeeID]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">EmployeeID_Source</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Match Output].Columns[EmployeeKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Match Output].Columns[EmployeeKey]"
+                          name="EmployeeKey"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">EmployeeKey</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup Project"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[DimProject]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[DimProject]) [refTable]
+where [refTable].[ProjectID_Source] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="ProjectKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProjectID_Source" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="ProjectName" dataType="DT_WSTR" length="200" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CategoryName" dataType="DT_WSTR" length="100" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Status" dataType="DT_WSTR" length="50" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Budget" dataType="DT_CY" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="StartDate" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="EndDate" dataType="DT_WSTR" length="10" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8C5DE1-0947-4D0B-8698-E84A65FC6B0D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DW.sa]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Inputs[Lookup Input].Columns[ProjectID]"
+                          cachedDataType="i4"
+                          cachedName="ProjectID"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">ProjectID_Source</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Match Output].Columns[ProjectKey]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Match Output].Columns[ProjectKey]"
+                          name="ProjectKey"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">ProjectKey</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DB Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[FactWorkLogs]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8C5DE1-0947-4D0B-8698-E84A65FC6B0D}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DW.sa]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[HoursWorked]"
+                          cachedDataType="numeric"
+                          cachedName="HoursWorked"
+                          cachedPrecision="4"
+                          cachedScale="2"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[HoursWorked]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HoursWorked]" />
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[ProjectKey]"
+                          cachedDataType="i4"
+                          cachedName="ProjectKey"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProjectKey]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Match Output].Columns[ProjectKey]" />
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[EmployeeKey]"
+                          cachedDataType="i4"
+                          cachedName="EmployeeKey"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeKey]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Match Output].Columns[EmployeeKey]" />
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DateKey]"
+                          cachedDataType="i4"
+                          cachedName="DateKey"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Output].Columns[DateKey]" />
+                        <inputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[LaborCost]"
+                          cachedDataType="cy"
+                          cachedName="LaborCost"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LaborCost]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Output].Columns[LaborCost]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FactLogKey]"
+                          dataType="i4"
+                          name="FactLogKey" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[EmployeeKey]"
+                          dataType="i4"
+                          name="EmployeeKey" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[ProjectKey]"
+                          dataType="i4"
+                          name="ProjectKey" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
+                          dataType="i4"
+                          name="DateKey" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[HoursWorked]"
+                          dataType="numeric"
+                          name="HoursWorked"
+                          precision="4"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[LaborCost]"
+                          dataType="cy"
+                          name="LaborCost" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[RecordCount]"
+                          dataType="i4"
+                          name="RecordCount" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE DB Source"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WorkLogs]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1251</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Connections[OleDbConnection]"
+                      connectionManagerID="{923ED997-76AC-4DE6-85A0-37DE7679F391}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DB.sa]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[LogID]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LogID]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[LogID]"
+                          name="LogID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ProjectID]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[ProjectID]"
+                          name="ProjectID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmployeeID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmployeeID]"
+                          name="EmployeeID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[WorkDate]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[WorkDate]"
+                          length="10"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[WorkDate]"
+                          name="WorkDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HoursWorked]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[HoursWorked]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HoursWorked]"
+                          name="HoursWorked"
+                          precision="4"
+                          scale="2"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[Description]"
+                          dataType="nText"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[Description]"
+                          name="Description"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HourlyRateApplied]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[HourlyRateApplied]"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].Columns[HourlyRateApplied]"
+                          name="HourlyRateApplied"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[LogID]"
+                          dataType="i8"
+                          name="LogID" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ProjectID]"
+                          dataType="i4"
+                          name="ProjectID" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EmployeeID]"
+                          dataType="i4"
+                          name="EmployeeID" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[WorkDate]"
+                          dataType="wstr"
+                          length="10"
+                          name="WorkDate" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[HoursWorked]"
+                          dataType="numeric"
+                          name="HoursWorked"
+                          precision="4"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                          dataType="nText"
+                          name="Description" />
+                        <externalMetadataColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[HourlyRateApplied]"
+                          dataType="cy"
+                          name="HourlyRateApplied" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LogID]"
+                          dataType="i8"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[LogID]"
+                          name="LogID" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ProjectID]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ProjectID]"
+                          name="ProjectID" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EmployeeID]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EmployeeID]"
+                          name="EmployeeID" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[WorkDate]"
+                          dataType="wstr"
+                          length="10"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[WorkDate]"
+                          name="WorkDate" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[HoursWorked]"
+                          dataType="numeric"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[HoursWorked]"
+                          name="HoursWorked"
+                          precision="4"
+                          scale="2" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Description]"
+                          dataType="nText"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Description]"
+                          name="Description" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[HourlyRateApplied]"
+                          dataType="cy"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[HourlyRateApplied]"
+                          name="HourlyRateApplied" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs.Paths[Derived Column Output]"
+                  endId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs.Paths[Lookup Match Output]"
+                  endId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs.Paths[Lookup Match Output1]"
+                  endId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column.Inputs[Derived Column Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Load WorkLogs Sequence\Load FactWorkLogs.Paths[OLE DB Source Output]"
+                  endId="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Load WorkLogs Sequence\Truncate FactWorkLogs"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Truncate FactWorkLogs"
+          DTS:DTSID="{88253632-2203-4ABB-BA6F-7936433A624B}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate FactWorkLogs"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2022; © 2022 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8C5DE1-0947-4D0B-8698-E84A65FC6B0D}"
+              SQLTask:SqlStatementSource="TRUNCATE TABLE FactWorkLogs;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Load WorkLogs Sequence.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{337CB4EC-4699-4CDC-9CAB-6937FFAD8473}"
+          DTS:From="Package\Load WorkLogs Sequence\Truncate FactWorkLogs"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Load WorkLogs Sequence\Load FactWorkLogs" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="189.6,41.6"
+          Id="Package\Load WorkLogs Sequence\Truncate FactWorkLogs"
+          TopLeft="5.5,1.67058791757461" />
+        <EdgeLayout
+          Id="Package\Load WorkLogs Sequence.PrecedenceConstraints[Constraint]"
+          TopLeft="101.571428584353,43.2705879175746">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.5176469850911"
+              Start="0,0"
+              End="0,35.0176469850911">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.0176469850911" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs"
+          TopLeft="17.6428571687061,85.7882349026657" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="204.8,182.4"
+          Size="204.8,225.6"
+          Id="Package\Load WorkLogs Sequence"
+          TopLeft="18.5714286109623,143.764705756338" />
+        <NodeLayout
+          Size="181.6,41.6"
+          Id="Package\Load Invoices Sequence\Truncate FactInvoices"
+          TopLeft="25.0857149334587,19.1411763023443" />
+        <NodeLayout
+          Size="162.4,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices"
+          TopLeft="40.0857149653898,97.905882115657" />
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence.PrecedenceConstraints[Constraint]"
+          TopLeft="118.585714949424,60.7411763023443">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.1647058133127"
+              Start="0,0"
+              End="0,29.6647058133127">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.6647058133127" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="224.8,192.8"
+          Size="224.8,236"
+          Id="Package\Load Invoices Sequence"
+          TopLeft="279.28571488024,129.235294004367" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load WorkLogs Sequence\Load FactWorkLogs">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source"
+          TopLeft="144.285714592861,74.1764705232167" />
+        <NodeLayout
+          Size="148.8,41.6"
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project"
+          TopLeft="137.857143150605,146.823529283068" />
+        <EdgeLayout
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs.Paths[OLE DB Source Output]"
+          TopLeft="215.671428871733,115.776470523217">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.0470587598514"
+              Start="0,0"
+              End="0,23.5470587598514">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5470587598514" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="161.6,41.6"
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee"
+          TopLeft="132.857143139961,224.823529214698" />
+        <EdgeLayout
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs.Paths[Lookup Match Output]"
+          TopLeft="212.957143145283,188.423529283068">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.39999993163"
+              Start="0,0"
+              End="0,28.89999993163">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.89999993163" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,8.645312465815,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="152.8,41.6"
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs\Derived Column"
+          TopLeft="140.000000298023,302.058823264645" />
+        <EdgeLayout
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs.Paths[Lookup Match Output1]"
+          TopLeft="215.028571718992,266.423529214698">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.6352940499473"
+              Start="0,0"
+              End="0,28.1352940499473">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.1352940499473" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,8.26295952497367,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination"
+          TopLeft="128.571428845123,377.764705551228" />
+        <EdgeLayout
+          Id="Package\Load WorkLogs Sequence\Load FactWorkLogs.Paths[Derived Column Output]"
+          TopLeft="215.085714571573,343.658823264645">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.1058822865821"
+              Start="0,0"
+              End="0,26.6058822865821">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.6058822865821" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Project">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimProject]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load WorkLogs Sequence\Load FactWorkLogs\Lookup Employee">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load WorkLogs Sequence\Load FactWorkLogs\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Load Invoices Sequence\Load FactInvoices">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="149.6,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source"
+          TopLeft="127.999998092651,73.9999988973141" />
+        <NodeLayout
+          Size="148.8,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project"
+          TopLeft="121.999998182058,161.999997586012" />
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence\Load FactInvoices.Paths[OLE DB Source Output]"
+          TopLeft="199.599998137355,115.599998897314">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.3999986886978"
+              Start="0,0"
+              End="0,38.8999986886978">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.8999986886978" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="160.8,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer"
+          TopLeft="119.999998211861,243.999996364117" />
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence\Load FactInvoices.Paths[Lookup Match Output]"
+          TopLeft="198.39999819696,203.599997586012">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.3999987781049"
+              Start="0,0"
+              End="0,32.8999987781049">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.8999987781049" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,10.6453118890524,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="117.6,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices\DateKey"
+          TopLeft="142.999997869134,326.99999512732" />
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence\Load FactInvoices.Paths[Lookup Match Output1]"
+          TopLeft="201.099998040497,285.599996364117">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.3999987632037"
+              Start="0,0"
+              End="0,33.8999987632037">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.8999987632037" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,11.1453118816018,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="155.2,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices\Data Conversion"
+          TopLeft="118.999998226762,411.999993860722" />
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence\Load FactInvoices.Paths[Derived Column Output]"
+          TopLeft="199.199998047948,368.59999512732">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.3999987334012"
+              Start="0,0"
+              End="0,35.8999987334012">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.8999987334012" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="154.4,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices\Conditional Split"
+          TopLeft="115.999998271465,484.999992772937" />
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence\Load FactInvoices.Paths[Data Conversion Output]"
+          TopLeft="194.899998249114,453.599993860722">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.3999989122152"
+              Start="0,0"
+              End="0,23.8999989122152">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.8999989122152" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="120,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices\Union All"
+          TopLeft="128.99999807775,562.999991610646" />
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence\Load FactInvoices.Paths[Paid Invoices]"
+          TopLeft="191.099998174608,526.599992772937">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.3999988377095"
+              Start="0,0"
+              End="0,28.8999988377095">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.8999988377095" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-29.562578125,19.5754875510931,59.12515625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence\Load FactInvoices.Paths[Conditional Split Default Output]"
+          TopLeft="191.099998174608,526.599992772937">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.3999988377095"
+              Start="0,0"
+              End="0,28.8999988377095">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.8999988377095" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-70.61390625,8.62089785635476,141.2278125,11.658203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="170.4,41.6"
+          Id="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination"
+          TopLeft="299.999995529652,559.07691603899" />
+        <EdgeLayout
+          Id="Package\Load Invoices Sequence\Load FactInvoices.Paths[Union All Output 1]"
+          TopLeft="248.99999807775,581.838453824818">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="50.9999974519015,0"
+              Start="0,0"
+              End="43.4999974519015,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="43.4999974519015,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Invoices Sequence\Load FactInvoices\Lookup Project">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimProject]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Invoices Sequence\Load FactInvoices\Lookup Customer">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimCustomer]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Invoices Sequence\Load FactInvoices\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

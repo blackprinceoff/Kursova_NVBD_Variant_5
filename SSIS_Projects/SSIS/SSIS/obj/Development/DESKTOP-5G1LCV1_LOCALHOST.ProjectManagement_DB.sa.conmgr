@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="DESKTOP-5G1LCV1_LOCALHOST.ProjectManagement_DB.sa"
+  DTS:DTSID="{923ED997-76AC-4DE6-85A0-37DE7679F391}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Data Source=DESKTOP-5G1LCV1\LOCALHOST;User ID=sa;Initial Catalog=ProjectManagement_DB;Provider=SQLOLEDB.1;Application Name=SSIS-SSIS-{923ED997-76AC-4DE6-85A0-37DE7679F391}DESKTOP-5G1LCV1\LOCALHOST.ProjectManagement_DB.sa;Auto Translate=False;">
+      <DTS:Password
+        DTS:Name="Password"
+        Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAMuFPk4A8nkmqBn8vXw3uVwAAAAACAAAAAAAQZgAAAAEAACAAAABhSOmQ1t4iHoeYTm9ib+ZCVfZ/WB1iRJKmyN0uMQ/PDgAAAAAOgAAAAAIAACAAAAC5/N90gcETAgFWL+BN5xDgV2+HX2Gb1JP0XRESQkTd1XAAAAA6kqsxXsgUaJi/xCrwI4sc3a1CdpBPH4ftqNgQneNA/Jo1SHL/9oYiZuV7Wfw6tgvAdGe+re/SA6NfDjhxz87m2XIksSDeusuSg89Nf3CjJBzP0F9Xt9i2uLeQ1EFGcSAKsKU28iu9THeQGMwcPgaPQAAAAK+Cvx/Oe8MN0OzWPI+atXwyPA6x3DuKxXlkbCUI4KnTv7O0Akz+rQIy19obXMCSPIAAC8qcuRvTKutWQZNtDC8=</DTS:Password>
+    </DTS:ConnectionManager>
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
